@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceManifest Name="VotingServicePkg" Version="1.0.3" xmlns="http://schemas.microsoft.com/2011/01/fabric" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ManifestId="c2a4a203-6aae-4624-8fce-a1f102101cda">
+  <ServiceTypes>
+    <!-- Este é o nome do seu ServiceType. 
+         Este nome deve corresponder à cadeia de caracteres usada na chamada RegisterServiceType em Program.cs. -->
+    <StatelessServiceType ServiceTypeName="VotingServiceType">
+      <LoadMetrics>
+        <LoadMetric Weight="Zero" Name="RPS" />
+      </LoadMetrics>
+    </StatelessServiceType>
+  </ServiceTypes>
+  <!-- O pacote de códigos é seu executável de serviço. -->
+  <CodePackage Name="Code" Version="1.0.3">
+    <EntryPoint>
+      <ExeHost>
+        <Program>VotingService.exe</Program>
+        <WorkingFolder>CodePackage</WorkingFolder>
+      </ExeHost>
+    </EntryPoint>
+  </CodePackage>
+  <!-- O pacote de configuração é o conteúdo do diretório de configuração em PackageRoot que contém um 
+       conjunto com versão e atualizável independentemente de definições de configuração personalizadas para o serviço. -->
+  <ConfigPackage Name="Config" Version="1.0.2" />
+  <Resources>
+    <Endpoints>
+      <!-- Esse ponto de extremidade é usado pelo ouvinte de comunicação para obter a porta na qual 
+           escuta. Observe que, se o serviço estiver particionado, essa porta será compartilhada com 
+           réplicas de partições diferentes colocadas em seu código. -->
+      <Endpoint Protocol="http" Name="ServiceEndpoint" Type="Input" />
+    </Endpoints>
+  </Resources>
+</ServiceManifest>

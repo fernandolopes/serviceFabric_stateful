@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceManifest Name="VotingStatePkg"
+                 Version="1.0.0"
+                 xmlns="http://schemas.microsoft.com/2011/01/fabric"
+                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ServiceTypes>
+    <!-- Este é o nome do seu ServiceType. 
+         Este nome deve corresponder à cadeia de caracteres usada na chamada RegisterServiceType em Program.cs. -->
+    <StatefulServiceType ServiceTypeName="VotingStateType" HasPersistedState="true" />
+  </ServiceTypes>
+
+  <!-- O pacote de códigos é seu executável de serviço. -->
+  <CodePackage Name="Code" Version="1.0.0">
+    <EntryPoint>
+      <ExeHost>
+        <Program>VotingState.exe</Program>
+      </ExeHost>
+    </EntryPoint>
+  </CodePackage>
+
+  <!-- O pacote de configuração é o conteúdo do diretório de configuração em PackageRoot que contém um 
+       conjunto com versão e atualizável independentemente de definições de configuração personalizadas para o serviço. -->
+  <ConfigPackage Name="Config" Version="1.0.0" />
+
+  <Resources>
+    <Endpoints>
+      <!-- Esse ponto de extremidade é usado pelo ouvinte de comunicação para obter a porta na qual 
+           escuta. Observe que, se o serviço estiver particionado, essa porta será compartilhada com 
+           réplicas de partições diferentes colocadas em seu código. -->
+      <Endpoint Name="ServiceEndpoint" Protocol="http" Type="Input" />
+
+      <!-- Esse ponto de extremidade é usado pelo replicador para replicar o estado do seu serviço.
+           Esse ponto de extremidade é configurado por meio de uma seção de configuração ReplicatorSettings no arquivo Settings.xml
+           no ConfigPackage. -->
+      <Endpoint Name="ReplicatorEndpoint" />
+    </Endpoints>
+  </Resources>
+</ServiceManifest>
